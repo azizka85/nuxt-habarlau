@@ -1,12 +1,14 @@
-import Ad from "./Ad"
+import User from "./User"
 
 export interface PageIndexData {
-  ads: Ad[]
+  users: User[]
 }
 
-export interface PageIndexMethods {}
+export interface PageIndexMethods {
+  refresh: () => void
+}
 
 export interface PageIndexComputed {
-  adsCount: number
+  usersCount: number
 }
 

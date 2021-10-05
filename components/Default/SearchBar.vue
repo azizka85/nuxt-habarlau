@@ -5,7 +5,7 @@
       <div class="search-bar-area">
         <input 
           type="text" 
-          :placeholder="Search" 
+          placeholder="Search" 
           class="search-bar-area-input"
         >
         <b-icon-search class="search-bar-area-icon" />

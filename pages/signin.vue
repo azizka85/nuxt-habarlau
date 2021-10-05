@@ -44,13 +44,16 @@ export default Vue.extend({
   },
   methods: {
     async login() {      
-      const response = await this.$auth.loginWith('local', {data: {
-        email: this.email,
-        password: this.password
-      }})     
+      try {
+        await this.$auth.loginWith('local', {data: {
+          email: this.email,
+          password: this.password
+        }})           
 
-      console.log(this.$auth.user);
-      
+        this.$router.push('/')
+      } catch(err) {
+        console.log(err)        
+      }
     }
   } 
 })

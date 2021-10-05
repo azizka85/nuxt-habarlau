@@ -1,6 +1,7 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
 import jwt from 'jsonwebtoken'
+import User from '../../types/User'
 
 const user = express.Router({
   mergeParams: true
@@ -28,21 +29,45 @@ user.get('', async function (req, res, next) {
       throw error
     }
   
-    const user = await prisma.user.findFirst({
+    const userData = await prisma.user.findFirst({
       where: {email: decodedToken.email}
     })
   
-    if(user) {
+    if(userData) {
+      const user: User = {
+        ...userData
+      }
+
       res.status(200).json({
-        user: {
-          name: user.name,
-          email: user.email,
-          photo: user.photo
-        }
+        user
       })
     } else {
       throw new Error("User not found!")
     }
+  } catch(err) {
+    next(err)
+  }
+})
+
+user.get('/list', async function (req, res, next) {
+  try {
+    const users = await prisma.user.findMany()
+
+    res.status(200).json(users)
+  } catch(err) {
+    next(err)
+  }
+})
+
+user.post('/create', async function (req, res, next) {
+  const { name, email, password, photo } = req.body
+
+  try {
+    const user = await prisma.user.create({
+      data: {email, name, password, photo}
+    })
+
+    res.status(201).json(user)
   } catch(err) {
     next(err)
   }

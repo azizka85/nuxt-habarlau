@@ -13,12 +13,12 @@
           &nbsp;
           Search Answers
         </b-list-group-item>
-        <b-list-group-item to="/favorite">
+        <b-list-group-item>
           <b-icon-heart class="menu-item-icon" />
           &nbsp;
           Favorite
         </b-list-group-item>
-        <b-list-group-item to="/settings">
+        <b-list-group-item>
           <b-icon-gear class="menu-item-icon" />
           &nbsp;
           Settings
