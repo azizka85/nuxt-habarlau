@@ -17,8 +17,18 @@ login.post('', async function (req, res, next) {
     })
 
     if(user && user.password == password) {
-      jwt
+      const token = jwt.sign({email: user.email}, 'secret', {
+        expiresIn: '30d'
+      })
+
+      res.status(200).json({
+        token
+      })
+    } else {
+      throw new Error("user not found!")
     }
+  } catch(err) {
+    next(err)
   }
 })
 
